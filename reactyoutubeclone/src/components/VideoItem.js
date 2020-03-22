@@ -1,17 +1,18 @@
 import React from 'react'
+import './VideoItem.css'
 
-export const VideoItem = ({ video }) => {
+export const VideoItem = ({ video, onVideoSelect }) => {
   return (
-    <div class="ui card">
-      <div class="image">
+    <div onClick={() => onVideoSelect(video)} className="ui card video-item">
+      <div className="image">
         <img src={video.snippet.thumbnails.medium.url} />
       </div>
-      <div class="content">
-        <a class="header">{video.snippet.title}</a>
-        <div class="meta">
-          <span class="date">{video.snippet.publishedAt}</span>
+      <div className="content">
+        <a className="header">{video.snippet.title}</a>
+        <div className="meta">
+          <span className="date">{video.snippet.publishedAt}</span>
         </div>
-        <div class="description">{video.snippet.description}</div>
+        <div className="description">{video.snippet.description}</div>
       </div>
     </div>
   )
