@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class SearchBar extends Component {
+export class SearchBar extends Component {
   state = { searchTerm: '' }
 
   onChange = e => {

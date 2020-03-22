@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import SearchBar from './SearchBar'
 import youtube from '../api/youtube'
+import { SearchBar } from './SearchBar'
+import { VideoList } from './VideoList'
 
 export default class App extends Component {
+  state = { videos: [] }
+
   onSearchSubmit = async searchTerm => {
     try {
-      const result = await youtube.get('/search', {
+      const response = await youtube.get('/search', {
         params: {
           part: 'snippet',
           type: 'video',
@@ -14,10 +17,9 @@ export default class App extends Component {
           q: searchTerm,
         },
       })
-      console.log(result)
+      this.setState({ videos: response.data.items })
     } catch (error) {
-      console.log('error:', error)
-      console.log(JSON.stringify(error))
+      console.log('error:', JSON.stringify(error))
     }
   }
 
@@ -25,6 +27,7 @@ export default class App extends Component {
     return (
       <div className="ui container">
         <SearchBar onFormSubmit={this.onSearchSubmit} />
+        <VideoList videos={this.state.videos} />
       </div>
     )
   }
